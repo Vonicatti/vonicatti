@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vonicatti Inc – Chi Siamo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Vonicatti Inc</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="about.html">Chi Siamo</a></li>
+                <li class="nav-item"><a class="nav-link" href="join.html">Partecipa</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Team -->
+<section id="team" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Il nostro Team</h2>
+        <div class="row g-4">
+            <!-- Team Member 1 -->
+            <div class="col-md-4">
+                <div class="card team-card h-100">
+                    <img src="https://randomuser.me/api/portraits/men/40.jpg"
+                         class="card-img-top rounded-circle mx-auto mt-4"
+                         alt="Mario Rossi"
+                         style="width: 120px; height: 120px; object-fit: cover;">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-title">Mario Rossi</h5>
+                        <p class="text-muted mb-3">CEO &amp; Fondatore</p>
+                        <p class="card-text flex-grow-1 text-truncate" style="--bs-line-clamp: 4;">
+                            Mario Rossi ha guidato Vonicatti Inc sin dalla sua nascita nel 1984…
+                        </p>
+                        <button class="btn btn-readmore w-10" data-bs-toggle="modal" data-bs-target="#bio1">
+                            Leggi di più
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="col-md-4">
+                <div class="card team-card h-100">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg"
+                         class="card-img-top rounded-circle mx-auto mt-4"
+                         alt="Luisa Bianchi"
+                         style="width: 120px; height: 120px; object-fit: cover;">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-title">Luisa Bianchi</h5>
+                        <p class="text-muted mb-3">COO</p>
+                        <p class="card-text flex-grow-1 text-truncate" style="--bs-line-clamp: 4;">
+                            Luisa Bianchi coordina le operazioni quotidiane di Vonicatti Inc con energia e pragmatismo…
+                        </p>
+                        <button class="btn btn-readmore w-10" data-bs-toggle="modal" data-bs-target="#bio2">
+                            Leggi di più
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="col-md-4">
+                <div class="card team-card h-100">
+                    <img src="https://randomuser.me/api/portraits/men/46.jpg"
+                         class="card-img-top rounded-circle mx-auto mt-4"
+                         alt="Giuseppe Verdi"
+                         style="width: 120px; height: 120px; object-fit: cover;">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-title">Giuseppe Verdi</h5>
+                        <p class="text-muted mb-3">CTO</p>
+                        <p class="card-text flex-grow-1 text-truncate" style="--bs-line-clamp: 4;">
+                            Giuseppe Verdi è l’anima tecnologica di Vonicatti Inc: con un dottorato in Ingegneria…
+                        </p>
+                        <button class="btn btn-readmore w-100" data-bs-toggle="modal" data-bs-target="#bio3">
+                            Leggi di più
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modals per le bio complete -->
+<div class="modal fade" id="bio1" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mario Rossi – CEO & Fondatore</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Mario Rossi ha guidato Vonicatti Inc sin dalla sua nascita nel 1984. Laureato in Ingegneria Civile al Politecnico di Torino, vanta oltre 35 anni di esperienza in grandi progetti infrastrutturali. Sotto la sua direzione sono nati cantieri in tutta Europa, dal restauro di complessi storici in Spagna fino all’ideazione di campus universitari innovativi in Germania. Mario è appassionato di architettura sostenibile, predilige materiali a basso impatto ambientale e segue personalmente ogni fase del workflow: dalla pianificazione all’esecuzione. Nel tempo libero corre maratone, è triatleta certificato e ama sperimentare ricette gourmet nel suo ristorante pop-up di famiglia</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="bio2" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Luisa Bianchi – COO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p >Luisa Bianchi coordina le operazioni quotidiane di Vonicatti Inc con energia e pragmatismo. Dopo una laurea in Economia Aziendale e un master in Project Management, ha maturato esperienza in multinazionali del settore edilizio, dove ha gestito team fino a 150 persone. In azienda supervisiona logistica, acquisti e controllo qualità: la sua attenzione al dettaglio ha permesso di ridurre i tempi di consegna del 20% negli ultimi cinque anni. È certificata PMP e filantropa attiva in progetti di edilizia sociale, supportando la riqualificazione di quartieri degradati. Appassionata di fotografia urbana, organizza workshop gratuiti per giovani talenti.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="bio3" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Giuseppe Verdi – CTO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Giuseppe Verdi è l’anima tecnologica di Vonicatti Inc: con un dottorato in Ingegneria delle Costruzioni e un background da sviluppatore BIM, ha introdotto in azienda soluzioni d’avanguardia come la stampa 3D di prototipi architettonici e l’analisi dati dei cantieri in tempo reale. Ha coordinato l’implementazione di sensori IoT per il monitoraggio strutturale delle nuove costruzioni, aumentando la sicurezza del 30%. È membro attivo di comitati di standardizzazione internazionale e relatore in conferenze sul Digital Twin. Nel tempo libero costruisce robot in open-source e organizza hackathon per studenti di ingegneria</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-4">
+    <div class="container text-center">
+        <p>&copy; <span id="year"></span> Vonicatti Inc. Tutti i diritti riservati.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

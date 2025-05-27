@@ -204,4 +204,15 @@ footer {
     color: #fff;
 }
 
+/* Login page */
+.login-card {
+    width: 100%;
+    max-width: 360px;
+    border-radius: 1rem;
+}
+
+body.bg-light {
+    background: #f2f4f7;
+}
+
 

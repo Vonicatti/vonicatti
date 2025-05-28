@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard Dipendenti</title>
+    <!-- Bootstrap CSS + FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f2f4f7; }
+        #header { background: #343a40; color: #fff; }
+        #header .user-info { font-weight: 500; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav id="header" class="navbar navbar-dark">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Area Dipendenti</span>
+        <div class="d-flex align-items-center">
+            <div class="me-4 user-info">
+                <!-- Qui verranno iniettati nome e livello con JS -->
+                <span id="welcomeText"></span><br>
+                <small>Livello di accesso: <span id="accessLevelText"></span></small>
+            </div>
+            <a href="login.html" class="btn btn-outline-light">Esci</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <h2 class="mb-4 text-center">Benvenuto nell’Area Riservata</h2>
+    <p class="text-center mb-5">Seleziona una cartella per esplorare i documenti.</p>
+
+    <!-- Accordion Cartelle -->
+    <div class="accordion" id="folderAccordion">
+
+        <!-- Cartella di livello 1 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed folder-btn" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="false" aria-controls="collapseOne"
+                        data-required-level="1">
+                    🗂️ Documenti Base
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#folderAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li>Mandato interno 2024</li>
+                        <li>Procedure di sicurezza base</li>
+                        <li>Contatti utili aziendali</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cartella di livello 2 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed folder-btn" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                        aria-expanded="false" aria-controls="collapseTwo"
+                        data-required-level="2">
+                    🗂️ Documenti Riservati
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#folderAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li>Piani Finanziari Segreti</li>
+                        <li>Rapporti trimestrali confid.</li>
+                        <li>Documentazione tecnica avanz.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cartella di livello 3 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed folder-btn" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                        aria-expanded="false" aria-controls="collapseThree"
+                        data-required-level="3">
+                    🗂️ Top Secret
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#folderAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li>Codici sorgente crittografati</li>
+                        <li>Progetti futuri non divulgabili</li>
+                        <li>Analisi di mercato confidenziale</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal Accesso Negato -->
+<div class="modal fade" id="accessDeniedModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Accesso Negato</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+            </div>
+            <div class="modal-body">
+                <p>Non hai il livello di accesso necessario per consultare questa cartella.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS + inizializzazione logica -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Simuliamo utente autenticato
+    const currentUser = { name: "Luca Verdi", level: 2 };
+
+    // Inietta nome e livello nell’intestazione
+    document.getElementById("welcomeText").textContent = `Ciao, ${currentUser.name}`;
+    document.getElementById("accessLevelText").textContent = currentUser.level;
+
+    // Intercetto l'evento di show su ogni collapse
+    document.querySelectorAll(".accordion-collapse").forEach(collapseEl => {
+        collapseEl.addEventListener("show.bs.collapse", function(e) {
+            // Trovo il pulsante che punta a questo collapse
+            const btn = document.querySelector(`[data-bs-target="#${collapseEl.id}"]`);
+            const required = parseInt(btn.dataset.requiredLevel, 10);
+            if (currentUser.level < required) {
+                // Blocco l'apertura
+                e.preventDefault();
+                // E mostro il modal di accesso negato
+                new bootstrap.Modal(document.getElementById("accessDeniedModal")).show();
+            }
+            // altrimenti lascia che Bootstrap apra
+        });
+    });
+</script>
+
+</body>
+</html>

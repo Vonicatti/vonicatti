@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard CEO – Mario Rossi</title>
+    <!-- Bootstrap CSS & FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --bg-light: #f2f4f7; --bg-dark: #121212; --text-light: #333; --text-dark: #eee; }
+        body { background: var(--bg-light); color: var(--text-light); transition: .3s; }
+        body.dark-mode { background: var(--bg-dark); color: var(--text-dark); }
+        #sidebar { position: fixed; top:1rem; left:1rem; width:280px; padding:1rem; }
+        .profile-card { background:#fff; border-radius:1rem; padding:1.5rem; box-shadow:0 4px 16px rgba(0,0,0,0.08); }
+        .profile-pic { width:100px; height:100px; border-radius:50%; object-fit:cover; display:block; margin:0 auto 1rem; }
+        .btn-profile { background:linear-gradient(135deg,#0062cc,#005bac); color:#fff; border:none; border-radius:.75rem; padding:.75rem; font-weight:600; transition:.2s; }
+        .btn-profile:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.2); }
+        #content { margin-left:320px; padding:1.5rem; }
+        .func-card { border-radius:.75rem; box-shadow:0 2px 8px rgba(0,0,0,0.1); transition:.2s; }
+        .func-card:hover { transform:translateY(-4px); box-shadow:0 4px 16px rgba(0,0,0,0.15); }
+        .func-icon { font-size:2rem; color:#005bac; }
+    </style>
+</head>
+<body>
+<!-- Sidebar -->
+<nav id="sidebar" aria-label="Sidebar">
+    <div class="profile-card text-center">
+        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Mario Rossi" class="profile-pic">
+        <h5>Mario Rossi</h5>
+        <p class="text-muted mb-3">CEO</p>
+        <ul class="list-unstyled mb-3">
+            <li><i class="fas fa-envelope me-2 text-primary"></i>m.rossi@vonicatti.it</li>
+            <li><i class="fas fa-phone me-2 text-primary"></i>+39 011 7654321</li>
+        </ul>
+        <div class="d-grid gap-2">
+            <button class="btn btn-profile"><i class="fas fa-user me-2"></i>Il mio Profilo</button>
+            <button class="btn btn-profile"><i class="fas fa-users-cog me-2"></i>Gestione Utenti</button>
+            <button class="btn btn-profile"><i class="fas fa-file-invoice-dollar me-2"></i>Approva Budget</button>
+            <button class="btn btn-profile position-relative">
+                <i class="fas fa-envelope me-2"></i>Messaggi
+                <span class="position-absolute top-0 start-100 translate-middle badge bg-light text-dark">3</span>
+            </button>
+            <a href="dashboard2.html" class="btn btn-profile">
+                <i class="fas fa-folder-open me-2"></i>Documenti Riservati
+            </a>             <button class="btn btn-profile"><i class="fas fa-cog me-2"></i>Impostazioni</button>
+            <a href="login.html" class="btn btn-profile"><i class="fas fa-sign-out-alt me-2"></i>Esci</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Content -->
+<div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent px-0 mb-4">
+        <div class="container-fluid px-0">
+            <nav aria-label="breadcrumb">
+
+            </nav>
+            <div class="d-flex ms-auto align-items-center">
+                <div class="input-group me-3" style="width:200px;">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input id="searchBox" type="text" class="form-control" placeholder="Cerca..." aria-label="Cerca funzioni">
+                </div>
+                <div class="dropdown me-3">
+                    <button class="btn btn-outline-secondary position-relative" id="notifBtn" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifBtn">
+                        <li><h6 class="dropdown-header">Notifiche</h6></li>
+                        <li><a class="dropdown-item" href="#">Ticket aggiornato #123</a></li>
+                        <li><a class="dropdown-item" href="#">Nuovo messaggio da Anna</a></li>
+                        <li><a class="dropdown-item" href="#">Promemoria riunione ore 15</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-center" href="#">Mostra tutte</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown me-3">
+                    <button class="btn btn-outline-secondary" id="langBtn" data-bs-toggle="dropdown">
+                        <i class="fas fa-language"></i> IT
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langBtn">
+                        <li><button class="dropdown-item">IT</button></li>
+                        <li><button class="dropdown-item">EN</button></li>
+                        <li><button class="dropdown-item">ES</button></li>
+                    </ul>
+                </div>
+                <button id="darkModeToggle" class="btn btn-outline-secondary">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="overview">
+        <h3>Benvenuto, <mark>Mario</mark>!</h3>
+        <p class="mb-4">Qui puoi accedere a tutte le funzionalità avanzate.</p>
+    </section>
+
+    <section id="quick-func" class="mb-5">
+        <h5>Funzioni Avanzate</h5>
+        <div class="row g-3 mt-3" id="funcContainer">
+            <div class="col-6 col-md-3">
+                <div class="card func-card p-3 text-center h-100" data-action="viewMetrics">
+                    <i class="fas fa-chart-pie func-icon mb-2"></i>
+                    <h6>Vis. Metriche</h6>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card func-card p-3 text-center h-100" data-action="manageUsers">
+                    <i class="fas fa-users-cog func-icon mb-2"></i>
+                    <h6>Utenti</h6>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card func-card p-3 text-center h-100" data-action="approveBudget">
+                    <i class="fas fa-file-invoice-dollar func-icon mb-2"></i>
+                    <h6>Budget</h6>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card func-card p-3 text-center h-100" data-action="companyLog">
+                    <i class="fas fa-user-secret func-icon mb-2"></i>
+                    <h6>Logs</h6>
+                </div>
+            </div>
+        </div>
+        <div id="mainContent" class="mt-5"></div>
+    </section>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Dark mode
+    document.getElementById('darkModeToggle').addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+
+    // Dynamic content
+    const main = document.getElementById('mainContent');
+    const templates = {
+        viewMetrics: `
+    <h5 class="mb-4">Metriche Aziendali</h5>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <canvas id="revenueChart" height="150"></canvas>
+      </div>
+      <div class="col-md-6">
+        <canvas id="costChart" height="150"></canvas>
+      </div>
+    </div>
+  `,
+        manageUsers: `
+    <h5 class="mb-4">Gestione Utenti</h5>
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Nome</th><th>Ruolo</th><th>Livello</th><th>Azioni</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Anna Bianchi</td><td>Project Manager</td><td>2</td>
+          <td>
+            <button class="btn btn-sm btn-primary">Modifica</button>
+            <button class="btn btn-sm btn-danger">Disabilita</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Marco Verdi</td><td>Ingegnere</td><td>1</td>
+          <td>
+            <button class="btn btn-sm btn-primary">Modifica</button>
+            <button class="btn btn-sm btn-danger">Disabilita</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  `,
+        approveBudget: `
+    <h5 class="mb-4">Richieste di Budget</h5>
+    <table class="table">
+      <thead>
+        <tr><th>Progetto</th><th>Richiesto da</th><th>Importo</th><th>Stato</th><th>Azione</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>GreenBuild</td><td>Luisa Bianchi</td><td>€120.000</td><td><span class="badge bg-warning">In attesa</span></td>
+          <td>
+            <button class="btn btn-sm btn-success">Approva</button>
+            <button class="btn btn-sm btn-danger">Rifiuta</button>
+          </td>
+        </tr>
+        <tr>
+          <td>SmartCity</td><td>Giuseppe Verdi</td><td>€85.000</td><td><span class="badge bg-warning">In attesa</span></td>
+          <td>
+            <button class="btn btn-sm btn-success">Approva</button>
+            <button class="btn btn-sm btn-danger">Rifiuta</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  `,
+        companyLog: `
+    <h5 class="mb-4">Audit Log Aziendale</h5>
+    <ul class="list-group">
+      <li class="list-group-item"><strong>09:00</strong> Mario Rossi ha approvato un budget (€120.000)</li>
+      <li class="list-group-item"><strong>10:15</strong> Nuovo utente creato: Anna Bianchi</li>
+      <li class="list-group-item"><strong>11:30</strong> Report trimestrale generato</li>
+      <li class="list-group-item"><strong>14:00</strong> Accesso da remoto da IP 192.168.1.15</li>
+    </ul>
+  `
+    };
+
+    document.querySelectorAll('.func-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const act = card.dataset.action;
+            main.innerHTML = templates[act] || '';
+            if (act === 'viewMetrics') {
+                const ctx = document.getElementById('ceoChart');
+                new Chart(ctx, { type:'bar', data:{ labels:['Q1','Q2','Q3','Q4'], datasets:[{ label:'Fatturato', data:[120,150,180,200], backgroundColor:'#005bac' }] }, options:{ responsive:true } });
+            }
+        });
+    });
+    // Inizializza con le metriche
+    main.innerHTML = templates.viewMetrics;
+    initializeCharts();
+
+    // Gestione click sulle card
+    document.querySelectorAll('.func-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const act = card.dataset.action;
+            main.innerHTML = templates[act] || '';
+            if (act === 'viewMetrics') initializeCharts();
+        });
+    });
+
+    // Funzione per creare i grafici Chart.js
+    function initializeCharts() {
+        // Ricavi mensili
+        new Chart(document.getElementById('revenueChart'), {
+            type: 'line',
+            data: {
+                labels: ['Gen','Feb','Mar','Apr','Mag','Giu'],
+                datasets: [{ label: 'Fatturato (k€)', data: [120,150,170,160,180,200], borderColor: '#005bac', fill: false }]
+            },
+            options: { responsive: true }
+        });
+        // Ripartizione costi
+        new Chart(document.getElementById('costChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Personale','Materiali','Logistica','Varie'],
+                datasets: [{ data: [30,40,20,10], backgroundColor: ['#005bac','#3399ff','#99ccff','#cce5ff'] }]
+            },
+            options: { responsive: true }
+        });
+    }
+</script>
+</body>
+</html>

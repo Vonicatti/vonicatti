@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vonicatti Inc – Partecipa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Vonicatti Inc</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="about.html">Chi Siamo</a></li>
+                <li class="nav-item"><a class="nav-link" href="join.html">Partecipa</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Area Riservata</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Join Form -->
+<section class="text-center bg-light py-5">
+    <div class="container" style="max-width:500px;">
+        <h2 class="mb-4">Partecipa al Progetto</h2>
+        <p>Un’esperienza sociale unica: dimostra la tua visione.</p>
+        <form action="/submit-partecipazione" method="post" name="partecipazione">
+            <div class="mb-3">
+                <input type="text" name="nome" class="form-control" placeholder="Nome completo" required>
+            </div>
+            <div class="mb-3">
+                <input type="email" name="email" class="form-control" placeholder="Email" required>
+            </div>
+            <div class="mb-3">
+                <textarea name="motivazione" class="form-control" rows="4" placeholder="Perché vuoi partecipare?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Invia</button>
+        </form>
+    </div>
+</section>
+
+<!-- Modal di Conferma -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Grazie!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+            </div>
+            <div class="modal-body">
+                La tua richiesta è stata inviata con successo.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS + script -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.forms['partecipazione'];
+        const feedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();    // blocca l'invio reale
+            feedbackModal.show();  // mostra il modal
+            form.reset();          // reset dei campi
+        });
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-4">
+    <div class="container text-center">
+        <p>&copy; <span id="year"></span> Vonicatti Inc. Tutti i diritti riservati.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vonicatti Inc – Chi Siamo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .team-card {
+            transition: 0.3s;
+        }
+        .team-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        .btn-readmore {
+            background: linear-gradient(to right, #005bac, #006bce);
+            color: white;
+        }
+        .btn-readmore:hover {
+            background: linear-gradient(to right, #006bce, #005bac);
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Vonicatti Inc</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="about.html">Chi Siamo</a></li>
+                <li class="nav-item"><a class="nav-link" href="join.html">Partecipa</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Area Riservata</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="py-5 text-white text-center" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df') center/cover no-repeat;">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Chi Siamo</h1>
+        <p class="lead">Da oltre 30 anni costruiamo il futuro con passione, innovazione e sostenibilità.</p>
+    </div>
+</section>
+
+<!-- Valori Aziendali -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <i class="fas fa-bullseye fa-2x text-primary mb-3"></i>
+                <h5>Missione</h5>
+                <p>Progetti sostenibili e ad alto impatto.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-eye fa-2x text-primary mb-3"></i>
+                <h5>Visione</h5>
+                <p>Guidare l'innovazione nelle costruzioni intelligenti.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-handshake fa-2x text-primary mb-3"></i>
+                <h5>Valori</h5>
+                <p>Etica, trasparenza, rispetto ambientale.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team -->
+<section id="team" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Il nostro Team</h2>
+        <div class="row g-4">
+            <!-- Membri team -->
+            <div class="col-md-4">
+                <div class="card team-card h-100">
+                    <img src="https://media.istockphoto.com/id/1483109187/it/foto/allaperto-allaperto-felice-felicit%C3%A0-maschio-attivo-parco-felice-felicit%C3%A0-vecchio-maturo-stile.jpg?s=612x612&w=0&k=20&c=shzBN8Sq7JU59eAWonO1yGsrWkU2rZcbSkP1i2ubF50=" class="card-img-top rounded-circle mx-auto mt-4" alt="Mario Rossi" style="width: 120px; height: 120px; object-fit: cover;">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-title">Bruno Zevi</h5>
+                        <p class="text-muted mb-3">CEO &amp; Fondatore</p>
+                        <p class="card-text flex-grow-1 text-truncate">Bruno Zevi ha guidato Vonicatti Inc sin dalla sua nascita nel 1984. Laureato in Ingegneria Civile al Politecnico di Torino, vanta oltre 35 anni di esperienza in grandi progetti infrastrutturali. Sotto la sua direzione sono nati cantieri in tutta Europa, dal restauro di complessi storici in Spagna fino all’ideazione di campus universitari innovativi in Germania. Mario è appassionato di architettura sostenibile, predilige materiali a basso impatto ambientale e segue personalmente ogni fase del workflow: dalla pianificazione all’esecuzione. Nel tempo libero corre maratone, è triatleta certificato e ama sperimentare ricette gourmet nel suo ristorante pop-up di famiglia</p>
+                        <button class="btn btn-readmore" data-bs-toggle="modal" data-bs-target="#bio1">Leggi di più</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card team-card h-100">
+                    <img src="https://lifeextensioneurope.b-cdn.net/media/5c/bd/43/1644244722/Red%20haired%20smiling%20woman.jpg?width=3000&height=3000" class="card-img-top rounded-circle mx-auto mt-4" alt="Luisa Bianchi" style="width: 120px; height: 120px; object-fit: cover;">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-title">Georges-Eugène Haussmann</h5>
+                        <p class="text-muted mb-3">COO</p>
+                        <p class="card-text flex-grow-1 text-truncate">coordina le operazioni quotidiane di Vonicatti Inc con energia e pragmatismo. Dopo una laurea in Economia Aziendale e un master in Project Management, ha maturato esperienza in multinazionali del settore edilizio, dove ha gestito team fino a 150 persone. In azienda supervisiona logistica, acquisti e controllo qualità: la sua attenzione al dettaglio ha permesso di ridurre i tempi di consegna del 20% negli ultimi cinque anni. È certificata PMP e filantropa attiva in progetti di edilizia sociale, supportando la riqualificazione di quartieri degradati. Appassionata di fotografia urbana, organizza workshop gratuiti per giovani talenti.</p>
+                        <button class="btn btn-readmore" data-bs-toggle="modal" data-bs-target="#bio2">Leggi di più</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card team-card h-100">
+                    <img src="https://www.simplysupplements.it/healthylife/uploads/images/image_big_687_5d516b2cadfdf.jpg" class="card-img-top rounded-circle mx-auto mt-4" alt="Giuseppe Verdi" style="width: 120px; height: 120px; object-fit: cover;">
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-title">Ludwig Ditter von Förster</h5>
+                        <p class="text-muted mb-3">CTO</p>
+                        <p class="card-text flex-grow-1 text-truncate">è l’anima tecnologica di Vonicatti Inc: con un dottorato in Ingegneria delle Costruzioni e un background da sviluppatore BIM, ha introdotto in azienda soluzioni d’avanguardia come la stampa 3D di prototipi architettonici e l’analisi dati dei cantieri in tempo reale. Ha coordinato l’implementazione di sensori IoT per il monitoraggio strutturale delle nuove costruzioni, aumentando la sicurezza del 30%. È membro attivo di comitati di standardizzazione internazionale e relatore in conferenze sul Digital Twin. Nel tempo libero costruisce robot in open-source e organizza hackathon per studenti di ingegneria</p>
+                        <button class="btn btn-readmore" data-bs-toggle="modal" data-bs-target="#bio3">Leggi di più</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-4">
+    <div class="container text-center">
+        <p>&copy; <span id="year"></span> Vonicatti Inc. Tutti i diritti riservati.</p>
+    </div>
+</footer>
+
+<!-- Modals -->
+<div class="modal fade" id="bio1" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bruno Zevi – CEO & Fondatore</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>ha guidato Vonicatti Inc sin dalla sua nascita nel 1984. Laureato in Ingegneria Civile al Politecnico di Torino, vanta oltre 35 anni di esperienza in grandi progetti infrastrutturali. Sotto la sua direzione sono nati cantieri in tutta Europa, dal restauro di complessi storici in Spagna fino all’ideazione di campus universitari innovativi in Germania. Mario è appassionato di architettura sostenibile, predilige materiali a basso impatto ambientale e segue personalmente ogni fase del workflow: dalla pianificazione all’esecuzione. Nel tempo libero corre maratone, è triatleta certificato e ama sperimentare ricette gourmet nel suo ristorante pop-up di famiglia</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="bio2" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Georges-Eugène Haussmann – COO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>coordina le operazioni quotidiane di Vonicatti Inc con energia e pragmatismo. Dopo una laurea in Economia Aziendale e un master in Project Management, ha maturato esperienza in multinazionali del settore edilizio, dove ha gestito team fino a 150 persone. In azienda supervisiona logistica, acquisti e controllo qualità: la sua attenzione al dettaglio ha permesso di ridurre i tempi di consegna del 20% negli ultimi cinque anni. È certificata PMP e filantropa attiva in progetti di edilizia sociale, supportando la riqualificazione di quartieri degradati. Appassionata di fotografia urbana, organizza workshop gratuiti per giovani talenti.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="bio3" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ludwig Ditter von Förster – CTO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>è l’anima tecnologica di Vonicatti Inc: con un dottorato in Ingegneria delle Costruzioni e un background da sviluppatore BIM, ha introdotto in azienda soluzioni d’avanguardia come la stampa 3D di prototipi architettonici e l’analisi dati dei cantieri in tempo reale. Ha coordinato l’implementazione di sensori IoT per il monitoraggio strutturale delle nuove costruzioni, aumentando la sicurezza del 30%. È membro attivo di comitati di standardizzazione internazionale e relatore in conferenze sul Digital Twin. Nel tempo libero costruisce robot in open-source e organizza hackathon per studenti di ingegneria</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

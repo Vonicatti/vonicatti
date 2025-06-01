@@ -20,7 +20,6 @@
                 <li class="nav-item"><a class="nav-link" href="about.html">Chi Siamo</a></li>
                 <li class="nav-item"><a class="nav-link" href="join.html">Partecipa</a></li>
                 <li class="nav-item"><a class="nav-link" href="login.html">Area Riservata</a></li>
-
             </ul>
         </div>
     </div>
@@ -36,6 +35,9 @@
                 <input type="text" name="nome" class="form-control" placeholder="Nome completo" required>
             </div>
             <div class="mb-3">
+                <input type="tel" name="telefono" class="form-control" placeholder="Numero di telefono" required>
+            </div>
+            <div class="mb-3">
                 <input type="email" name="email" class="form-control" placeholder="Email" required>
             </div>
             <div class="mb-3">
@@ -43,6 +45,11 @@
             </div>
             <button type="submit" class="btn btn-primary btn-lg">Invia</button>
         </form>
+
+        <!-- Pulsante nascosto inizialmente; compare dopo submit -->
+        <div id="linkButtonContainer" class="mt-4 d-none">
+            <a href="https://player.stornaway.io/watch/cbe34ea4/preview" class="btn btn-danger btn-lg">GIOCA</a>
+        </div>
     </div>
 </section>
 
@@ -70,16 +77,21 @@
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.forms['partecipazione'];
         const feedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
+        const linkButtonContainer = document.getElementById('linkButtonContainer');
 
         form.addEventListener('submit', e => {
-            e.preventDefault();    // blocca l'invio reale
-            feedbackModal.show();  // mostra il modal
-            form.reset();          // reset dei campi
+            e.preventDefault();                // blocca l'invio reale
+            feedbackModal.show();              // mostra il modal
+            form.reset();                      // reset dei campi
+            linkButtonContainer.classList.remove('d-none'); // rende visibile il pulsante
         });
     });
-    document.getElementById('year').textContent = new Date().getFullYear();
-</script>
 
+    // Aggiorna automaticamente l’anno nel footer
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('year').textContent = new Date().getFullYear();
+    });
+</script>
 
 <!-- Footer -->
 <footer class="bg-dark text-white py-4">
@@ -87,8 +99,5 @@
         <p>&copy; <span id="year"></span> Vonicatti Inc. Tutti i diritti riservati.</p>
     </div>
 </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

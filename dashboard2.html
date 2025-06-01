@@ -6,10 +6,46 @@
     <title>Dashboard Dipendenti</title>
     <!-- Bootstrap CSS + FontAwesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         body { background: #f2f4f7; }
         #header { background: #343a40; color: #fff; }
         #header .user-info { font-weight: 500; }
+
+        /* File‐style list inside all levels */
+        .file-item {
+            cursor: pointer;
+            border: none;
+            border-bottom: 1px solid #e9ecef;
+            padding: .75rem 1rem;
+            background: #fff;
+            transition: background .2s;
+        }
+        .file-item:hover {
+            background: #e9ecef;
+        }
+        .file-content {
+            background: #f8f9fa;
+            /* Rimosso border-left per eliminare la linea blu */
+            padding: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: left;           /* Allinea il testo a sinistra */
+            margin: 0;                  /* Elimina eventuali margini default */
+        }
+        /* Rimuove qualsiasi indentazione nel <pre> */
+        .file-content pre {
+            margin: 0;
+            padding: 0;
+            white-space: pre-wrap;
+            font-family: inherit;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #header .user-info { text-align: center; margin-bottom: .5rem; }
+            #header .d-flex { flex-direction: column; align-items: center; }
+        }
     </style>
 </head>
 <body>
@@ -20,7 +56,7 @@
         <span class="navbar-brand mb-0 h1">Area Dipendenti</span>
         <div class="d-flex align-items-center">
             <div class="me-4 user-info">
-                <!-- Qui verranno iniettati nome e livello con JS -->
+                <!-- Nome e livello saranno iniettati via JS -->
                 <span id="welcomeText"></span><br>
                 <small>Livello di accesso: <span id="accessLevelText"></span></small>
             </div>
@@ -47,12 +83,81 @@
                 </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#folderAccordion">
-                <div class="accordion-body">
-                    <ul>
-                        <li>Mandato interno 2024</li>
-                        <li>Procedure di sicurezza base</li>
-                        <li>Contatti utili aziendali</li>
-                    </ul>
+                <div class="accordion-body p-0">
+                    <div class="list-group">
+
+                        <!-- Documento 1 livello 1 -->
+                        <button class="file-item d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" data-bs-target="#fileLevel1Doc1">
+                <span>
+                  <i class="fas fa-file-alt me-2 text-secondary"></i>
+                  Manuale Utente VPN
+                </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="fileLevel1Doc1" class="collapse">
+                            <div class="file-content">
+<pre>Manuale Utente VPN
+
+Questo documento descrive i passaggi necessari per configurare
+e collegarsi alla rete aziendale tramite VPN.
+Contiene istruzioni per Windows, macOS e dispositivi mobili.
+
+• Installazione del client
+• Impostazione delle credenziali
+• Risoluzione problemi comuni
+</pre>
+                            </div>
+                        </div>
+
+                        <!-- Documento 2 livello 1 -->
+                        <button class="file-item d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" data-bs-target="#fileLevel1Doc2">
+                <span>
+                  <i class="fas fa-file-invoice me-2 text-secondary"></i>
+                  Buste Paga 2023
+                </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="fileLevel1Doc2" class="collapse">
+                            <div class="file-content">
+<pre>Buste Paga 2023
+
+Archivio delle buste paga mensili per tutti i dipendenti dell’anno 2023.
+Include:
+- Stipendio lordo
+- Ritenute fiscali
+- Contributi previdenziali
+- Totale netto
+</pre>
+                            </div>
+                        </div>
+
+                        <!-- Documento 3 livello 1 -->
+                        <button class="file-item d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" data-bs-target="#fileLevel1Doc3">
+                <span>
+                  <i class="fas fa-file-contract me-2 text-secondary"></i>
+                  Contratto CCNL
+                </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="fileLevel1Doc3" class="collapse">
+                            <div class="file-content">
+<pre>Contratto CCNL
+
+Testo completo del Contratto Collettivo Nazionale di Lavoro
+per il settore edilizio, vigente al 1° gennaio 2023.
+Contiene clausole su:
+- Orario di lavoro
+- Retribuzione minima
+- Permessi retribuiti
+- Norme disciplinari
+</pre>
+                            </div>
+                        </div>
+
+                    </div> <!-- /.list-group -->
                 </div>
             </div>
         </div>
@@ -68,17 +173,95 @@
                 </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#folderAccordion">
-                <div class="accordion-body">
-                    <ul>
-                        <li>Piani Finanziari Segreti</li>
-                        <li>Rapporti trimestrali confid.</li>
-                        <li>Documentazione tecnica avanz.</li>
-                    </ul>
+                <div class="accordion-body p-0">
+                    <div class="list-group">
+
+                        <!-- Documento 1 livello 2 -->
+                        <button class="file-item d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" data-bs-target="#fileLevel2Doc1">
+                <span>
+                  <i class="fas fa-chart-area me-2 text-secondary"></i>
+                  Report Financ. Q2 2024
+                </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="fileLevel2Doc1" class="collapse">
+                            <div class="file-content">
+<pre>Report Finanziario Q2 2024
+
+• Ricavi totali: € 1.200.000
+• Costi operativi: € 800.000
+• Utile netto: € 250.000
+
+Analisi dettagliata:
+- Segmento residenziale: +15% ricavi
+- Segmento industriale: +8% costi
+- Previsioni per Q3 2024: crescita stimata +5%
+</pre>
+                            </div>
+                        </div>
+
+                        <!-- Documento 2 livello 2 -->
+                        <button class="file-item d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" data-bs-target="#fileLevel2Doc2">
+                <span>
+                  <i class="fas fa-file-invoice-dollar me-2 text-secondary"></i>
+                  Preventivo “SkyTower”
+                </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="fileLevel2Doc2" class="collapse">
+                            <div class="file-content">
+<pre>Preventivo “SkyTower”
+
+Cliente: Skyline S.r.l.
+Progetto: Costruzione SkyTower – 50 piani
+
+• Costo materiali: € 5.000.000
+• Costo manodopera: € 3.200.000
+• Spese generali: € 800.000
+• Totale stimato: € 9.000.000
+
+Sconti applicati:
+- Sconto fedeltà 5%
+- Sconto quantità cemento 2%
+</pre>
+                            </div>
+                        </div>
+
+                        <!-- Documento 3 livello 2 -->
+                        <button class="file-item d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" data-bs-target="#fileLevel2Doc3">
+                <span>
+                  <i class="fas fa-user-shield me-2 text-secondary"></i>
+                  Politica Privacy Interna
+                </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="fileLevel2Doc3" class="collapse">
+                            <div class="file-content">
+<pre>Politica Privacy Interna
+
+Linee guida per la gestione dei dati sensibili:
+1. Dati personale dei dipendenti:
+   - Conservazione cifrata
+   - Accesso riservato a dirigenti HR
+2. Dati clienti:
+   - Trattamento anonimo per analisi statistiche
+   - Condivisione solo con ufficio Marketing previo NDA
+3. Backup e periodi di conservazione:
+   - Backup mensile su server sicuro
+   - Conservazione minima: 10 anni
+</pre>
+                            </div>
+                        </div>
+
+                    </div> <!-- /.list-group -->
                 </div>
             </div>
         </div>
 
-        <!-- Cartella di livello 3 -->
+        <!-- Cartella di livello 3: Top Secret -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingThree">
                 <button class="accordion-button collapsed folder-btn" type="button"
@@ -89,18 +272,197 @@
                 </button>
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#folderAccordion">
-                <div class="accordion-body">
-                    <ul>
-                        <li>Codici sorgente crittografati</li>
-                        <li>Progetti futuri non divulgabili</li>
-                        <li>Analisi di mercato confidenziale</li>
-                    </ul>
+                <div class="accordion-body p-0">
+                    <div class="list-group">
+
+                        <!-- BONIFICO -->
+                        <button class="file-item d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" data-bs-target="#file1content">
+                <span>
+                  <i class="fas fa-file-invoice-dollar me-2 text-secondary"></i>
+                  BONIFICO
+                </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="file1content" class="collapse">
+                            <div class="file-content">
+<pre>BONIFICO
+Mittente: Vonicatti Edilizia, Inc.
+IBAN: XXXXXXXXXXXXXXXXXXXXXXXXXXX
+Destinatario: ComUrb, Srl
+IBAN: XXXXXXXXXXXXXXXXXXXXXXXXXXX
+Banca d’appoggio: [REDACTED]
+Data esecuzione: 07/10/2035
+Importo: € 2.500.000,00 EUR
+
+Scritto a penna:
+“Ultimo pagamento progetto CENERE-5. Informare Formeta.”</pre>
+                            </div>
+                        </div>
+
+                        <!-- DOCUMENTO CENERE-5 -->
+                        <button class="file-item d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" data-bs-target="#file2content">
+                <span>
+                  <i class="fas fa-file-alt me-2 text-secondary"></i>
+                  DOCUMENTO CENERE-5
+                </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="file2content" class="collapse">
+                            <div class="file-content">
+<pre>DOCUMENTO CENERE-5
+
+Nota interna riservata – uso esclusivo uffici interni
+Data: 22/11/2035
+
+Le operazioni preliminari sono concluse. Il progetto della Vonicatti Edilizia, Inc. è stato approvato dalla commissione Bilancio e viene ora trasferito alla sezione di Urbanistica. Arriveranno i piani e disegni in seguito a questa nota.
+Dare massima priorità a questo progetto, mettendo in pausa gli altri. Serve l’approvazione per la fine del mese.
+
+Presidente commissione Bilancio,
+Giuseppe Mangiori</pre>
+                            </div>
+                        </div>
+
+                        <!-- ATTO COSTITUTIVO SOCIETÀ -->
+                        <button class="file-item d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" data-bs-target="#file3content">
+                <span>
+                  <i class="fas fa-file-signature me-2 text-secondary"></i>
+                  ATTO COSTITUTIVO SOCIETÀ
+                </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="file3content" class="collapse">
+                            <div class="file-content">
+<pre>ATTO COSTITUTIVO SOCIETÀ
+Repubblica Italiana
+
+L’anno millenovecentoottantaquattro, il giorno quindici del mese di gennaio
+in Torino (TO)
+Avanti a me, Dott. Claudio Messina, Notaio in Torino, iscritto al Collegio Notarile del Distretto di Torino,
+
+SONO COMPARSI
+i signori:
+Ing. Bruno Zezi, nato a Biella (BI) il 23 marzo 1960, residente in Torino (TO), Via San Paolo n. 9, codice fiscale VZIBRN64C23A859Y;
+Ing. Giorgio Eugenio Osmanni, nato a Biella (BI) il 9 giugno 1960, residente in Torino (TO), Via San Paolo n. 9, codice fiscale SMNGGG60H09A859N;
+Ing. Luigi Silvetri, nato a Torino (TO) il 10 novembre 1952, residente in Torino (TO), Via Zino Zini n. 41, codice fiscale SLVLGU52S10L219Q;
+Geom. Alessia D'Amico, nata a Gallarate (VA) il 12 giugno 1955, residente in Milano (MI), Via Giuseppe Giusti n. 3, codice fiscale DMCLSS55H52D869D;
+
+i quali, di comune accordo, dichiarano di costituire una società a responsabilità limitata ai sensi dell’articolo 2463 del Codice Civile, sotto la seguente denominazione:
+VONICATTÌ EDILIZA, INC.
+
+Articolo 1 – Denominazione
+È costituita una società a responsabilità limitata denominata: Vonicattì Ediliza Inc.
+
+Articolo 2 – Sede
+La società ha sede legale nel Comune di Torino (TO), Via Zino Zini.
+La società potrà istituire sedi secondarie, filiali e uffici in Italia e all’estero.
+
+Articolo 3 – Durata
+La durata della società è fissata fino al 31 dicembre 2080 e potrà essere prorogata con delibera dell’assemblea straordinaria dei soci.
+
+Articolo 4 – Oggetto sociale
+La società ha per oggetto l’esercizio delle seguenti attività:
+- lavori generali di costruzione di edifici residenziali e non residenziali;
+- opere murarie, carpenteria, ristrutturazioni, restauro edilizio e consolidamento strutturale;
+- progettazione, realizzazione e manutenzione di immobili civili e industriali;
+- attività di consulenza tecnica, direzione lavori, certificazione e progettazione edilizia;
+- commercio all’ingrosso e al dettaglio di materiali edili.
+
+La società potrà compiere tutte le operazioni commerciali, industriali, mobiliari, immobiliari e finanziarie, ritenute dall’organo amministrativo necessarie o utili per il conseguimento dell’oggetto sociale.
+
+Articolo 5 – Capitale sociale
+Il capitale sociale è fissato in lire 400.000.000,00 (quattrocento milioni virgola zero zero), interamente sottoscritto come segue:
+- Ing. Bruno Zezi: lire 20.000.000,00
+- Ing. Giorgio Eugenio Osmanni: lire 30.000.000,00
+- Ing. Luigi Silvetri: lire 100.000.000,00
+- Geom. Alessia D'Amico: lire 250.000.000,00
+
+Articolo 6 – Amministrazione
+La società è amministrata da un Consiglio di Amministrazione composto da quattro membri:
+- Presidente: Ing. Bruno Zezi
+- Direttore generale: Ing. Giorgio Eugenio Osmanni
+- Direttore di produzione: Ing. Luigi Silvetri
+- Amministratrice: Geom. Alessia D’Amico
+
+Agli amministratori spettano i più ampi poteri per la gestione ordinaria e straordinaria della società.
+
+Articolo 7 – Esercizio sociale
+L’esercizio sociale si chiude il 31 dicembre di ogni anno. Il primo esercizio si chiuderà il 31 dicembre 1984.
+
+Articolo 8 – Clausole finali
+Per quanto non previsto dal presente atto, si fa riferimento alle norme del Codice Civile in materia di società a responsabilità limitata.
+
+Letto, approvato e sottoscritto.
+Torino, lì 15 gennaio 1984
+
+Firmato:
+- Ing. Bruno Zezi
+- Ing. Giorgio Eugenio Osmanni
+- Ing. Luigi Silvetri
+- Geom. Alessia D’Amico
+- Dott. Claudio Messina – Notaio</pre>
+                            </div>
+                        </div>
+
+                        <!-- EMAIL AZIENDALE VONICATTI -->
+                        <button class="file-item d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" data-bs-target="#file4content">
+                <span>
+                  <i class="fas fa-envelope-open-text me-2 text-secondary"></i>
+                  EMAIL AZIENDALE VONICATTI
+                </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="file4content" class="collapse">
+                            <div class="file-content">
+<pre>EMAIL AZIENDALE VONICATTI
+Inviata il 27/08/2032
+Oggetto: Conclusione Progetto Cenere-3 – Ringraziamenti e Prossimi Passi
+
+Gentili colleghi,
+
+Desidero ringraziare tutto il team per l’impegno e la dedizione dimostrati nella realizzazione del progetto, commissionato dal comune. Grazie al vostro lavoro professionale e alla collaborazione efficace, siamo riusciti a rispettare tutte le scadenze e a soddisfare pienamente le richieste del cliente.
+
+Questo successo rappresenta un importante traguardo per la nostra azienda e consolida ulteriormente il nostro rapporto di fiducia con l’Amministrazione Comunale, aprendo nuove opportunità di collaborazione futura.
+
+Ancora grazie a tutti per il vostro contributo. Continuiamo su questa strada per raggiungere insieme nuovi importanti obiettivi.
+
+Cordiali saluti,
+Bruno Zezi
+Presidente e CEO
+Vonicatti Edilizia, Inc.</pre>
+                            </div>
+                        </div>
+
+                        <!-- CONFERIMENTO TITOLO -->
+                        <button class="file-item d-flex justify-content-between align-items-center"
+                                data-bs-toggle="collapse" data-bs-target="#file5content">
+                <span>
+                  <i class="fas fa-award me-2 text-secondary"></i>
+                  CONFERIMENTO TITOLO
+                </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="file5content" class="collapse">
+                            <div class="file-content">
+<pre>CONFERIMENTO TITOLO
+
+Titolo conferito: Cavaliere del Lavoro
+Descrizione:
+Con decreto personale del Sovraintendente Linomusso, il titolo di Cavaliere del Lavoro è stato assegnato a Bruno Zezi, CEO della Vonicatti Edilizia, in riconoscimento dell’eccezionale contributo apportato allo sviluppo industriale e infrastrutturale della città. Questo onore rappresenta non solo un tributo al successo imprenditoriale e alla leadership visionaria di Zezi, ma anche un simbolo della stretta collaborazione tra l’amministrazione e le imprese strategiche che sostengono la sua egemonia.
+Il Cavaliere del Lavoro Bruno Zezi è considerato un pilastro fondamentale nella realizzazione dei progetti pubblici, incarnando valori di fedeltà, efficienza e innovazione al servizio della Città.</pre>
+                            </div>
+                        </div>
+
+                    </div> <!-- /.list-group -->
                 </div>
             </div>
         </div>
 
-    </div>
-</div>
+    </div> <!-- /.accordion -->
+</div> <!-- /.container -->
 
 <!-- Modal Accesso Negato -->
 <div class="modal fade" id="accessDeniedModal" tabindex="-1" aria-hidden="true">
@@ -120,32 +482,32 @@
     </div>
 </div>
 
-<!-- Bootstrap JS + inizializzazione logica -->
+<!-- Bootstrap JS + logica di accesso -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Simuliamo utente autenticato
-    const currentUser = { name: "Mario Rossi", level: 3 };
+    // Utente simulato (nome + livello)
+    const currentUser = { name: "Bruno Zevi", level: 3 };
 
     // Inietta nome e livello nell’intestazione
     document.getElementById("welcomeText").textContent = `Ciao, ${currentUser.name}`;
     document.getElementById("accessLevelText").textContent = currentUser.level;
 
-    // Intercetto l'evento di show su ogni collapse
-    document.querySelectorAll(".accordion-collapse").forEach(collapseEl => {
-        collapseEl.addEventListener("show.bs.collapse", function(e) {
-            // Trovo il pulsante che punta a questo collapse
-            const btn = document.querySelector(`[data-bs-target="#${collapseEl.id}"]`);
+    // Blocca l'apertura di cartelle se livello non sufficiente
+    document.querySelectorAll(".folder-btn").forEach(btn => {
+        btn.addEventListener("click", function(e) {
             const required = parseInt(btn.dataset.requiredLevel, 10);
             if (currentUser.level < required) {
-                // Blocco l'apertura
                 e.preventDefault();
-                // E mostro il modal di accesso negato
+                // Chiudiamo la collapse se stava aprendo
+                const collapseEl = document.querySelector(btn.dataset.bsTarget);
+                if (collapseEl.classList.contains("show")) {
+                    new bootstrap.Collapse(collapseEl).hide();
+                }
+                // Mostriamo modal di accesso negato
                 new bootstrap.Modal(document.getElementById("accessDeniedModal")).show();
             }
-            // altrimenti lascia che Bootstrap apra
         });
     });
 </script>
-
 </body>
 </html>

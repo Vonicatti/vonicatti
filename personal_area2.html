@@ -7,24 +7,159 @@
     <!-- Bootstrap CSS & FontAwesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
     <style>
-        :root { --bg-light: #f2f4f7; --bg-dark: #121212; --text-light: #333; --text-dark: #eee; }
-        body { background: var(--bg-light); color: var(--text-light); transition: .3s; }
-        body.dark-mode { background: var(--bg-dark); color: var(--text-dark); }
-        #sidebar { position: fixed; top:1rem; left:1rem; width:280px; padding:1rem; }
-        .profile-card { background:#fff; border-radius:1rem; padding:1.5rem; box-shadow:0 4px 16px rgba(0,0,0,0.08); }
-        .profile-pic { width:100px; height:100px; border-radius:50%; object-fit:cover; display:block; margin:0 auto 1rem; }
-        .btn-profile { background:linear-gradient(135deg,#0062cc,#005bac); color:#fff; border:none; border-radius:.75rem; padding:.75rem; font-weight:600; transition:.2s; }
-        .btn-profile:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.2); }
-        #content { margin-left:320px; padding:1.5rem; }
-        .func-card { border-radius:.75rem; box-shadow:0 2px 8px rgba(0,0,0,0.1); transition:.2s; }
-        .func-card:hover { transform:translateY(-4px); box-shadow:0 4px 16px rgba(0,0,0,0.15); }
-        .func-icon { font-size:2rem; color:#005bac; }
+        :root {
+            --bg-light: #f2f4f7;
+            --bg-dark: #121212;
+            --text-light: #333;
+            --text-dark: #eee;
+        }
+        body {
+            background: var(--bg-light);
+            color: var(--text-light);
+            transition: background .3s, color .3s;
+        }
+        body.dark-mode {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* ===========================
+           SIDEBAR FISSO (desktop) + OFFCANVAS (mobile)
+           =========================== */
+        #btnToggleSidebar {
+            display: none;
+        }
+        @media (max-width: 992px) {
+            #btnToggleSidebar {
+                display: block;
+            }
+        }
+        #sidebar {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            width: 280px;
+            padding: 1rem;
+            z-index: 1020; /* sopra il contenuto ma sotto il navbar mobile */
+        }
+        .profile-card {
+            background: #fff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        .profile-pic {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block; margin: 0 auto 1rem;
+        }
+        .btn-profile {
+            background: linear-gradient(135deg, #0062cc, #005bac);
+            color: #fff;
+            border: none;
+            border-radius: .75rem;
+            padding: .75rem;
+            font-weight: 600;
+            transition: transform .2s, box-shadow .2s;
+        }
+        .btn-profile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        /* ===========================
+           CONTENUTO PRINCIPALE
+           =========================== */
+        #content {
+            margin-left: 320px;
+            padding: 1.5rem;
+        }
+        @media (max-width: 992px) {
+            #content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+        }
+
+        /* ===========================
+           CARD “Funzioni Avanzate”
+           =========================== */
+        .func-card {
+            border-radius: .75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform .2s, box-shadow .2s;
+        }
+        .func-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .func-icon {
+            font-size: 2rem;
+            color: #005bac;
+        }
     </style>
 </head>
 <body>
-<!-- Sidebar -->
-<nav id="sidebar" aria-label="Sidebar">
+
+<!-- ===========================
+     NAVBAR + Pulsante OFFCANVAS
+     =========================== -->
+<nav class="navbar navbar-dark bg-transparent px-3">
+    <div class="container-fluid">
+        <!-- Hamburger per aprire sidebar offcanvas su mobile -->
+        <button class="btn btn-outline-secondary me-3 d-lg-none" type="button"
+                id="btnToggleSidebar" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <span class="navbar-brand mb-0 h1"></span>
+
+        <div class="collapse navbar-collapse"></div>
+
+        <div class="d-flex align-items-center">
+            <div class="input-group me-3 d-none d-md-flex" style="width:200px;">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <input id="searchBox" type="text" class="form-control" placeholder="Cerca..." aria-label="Cerca funzioni">
+            </div>
+            <div class="dropdown me-3">
+                <button class="btn btn-outline-secondary position-relative" id="notifBtn" data-bs-toggle="dropdown">
+                    <i class="fas fa-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle-x badge rounded-pill bg-danger" style="transform: translate(25%, -50%);">5</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifBtn">
+                    <li><h6 class="dropdown-header">Notifiche</h6></li>
+                    <li><a class="dropdown-item" href="#">Ticket aggiornato #123</a></li>
+                    <li><a class="dropdown-item" href="#">Nuovo messaggio da Anna</a></li>
+                    <li><a class="dropdown-item" href="#">Promemoria riunione ore 15</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-center" href="#">Mostra tutte</a></li>
+                </ul>
+            </div>
+            <div class="dropdown me-3">
+                <button class="btn btn-outline-secondary" id="langBtn" data-bs-toggle="dropdown">
+                    <i class="fas fa-language"></i> IT
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langBtn">
+                    <li><button class="dropdown-item">IT</button></li>
+                    <li><button class="dropdown-item">EN</button></li>
+                    <li><button class="dropdown-item">ES</button></li>
+                </ul>
+            </div>
+            <button id="darkModeToggle" class="btn btn-outline-secondary">
+                <i class="fas fa-moon"></i>
+            </button>
+
+        </div>
+    </div>
+</nav>
+
+<!-- ===========================
+     SIDEBAR FISSO (desktop)
+     =========================== -->
+<nav id="sidebar" class="d-none d-lg-block" aria-label="Sidebar">
     <div class="profile-card text-center">
         <img src="https://media.istockphoto.com/id/1483109187/it/foto/allaperto-allaperto-felice-felicit%C3%A0-maschio-attivo-parco-felice-felicit%C3%A0-vecchio-maturo-stile.jpg?s=612x612&w=0&k=20&c=shzBN8Sq7JU59eAWonO1yGsrWkU2rZcbSkP1i2ubF50=" alt="Bruno Zevi" class="profile-pic">
         <h5>Bruno Zevi</h5>
@@ -43,58 +178,64 @@
             </button>
             <a href="dashboard2.html" class="btn btn-profile">
                 <i class="fas fa-folder-open me-2"></i>Documenti Riservati
-            </a>             <button class="btn btn-profile"><i class="fas fa-cog me-2"></i>Impostazioni</button>
-            <a href="login.html" class="btn btn-profile"><i class="fas fa-sign-out-alt me-2"></i>Esci</a>
+            </a>
+            <button class="btn btn-profile"><i class="fas fa-cog me-2"></i>Impostazioni</button>
+            <a href="login.html" class="btn btn-profile">
+                <i class="fas fa-sign-out-alt me-2"></i>Esci
+            </a>
         </div>
     </div>
 </nav>
 
-<!-- Content -->
-<div id="content">
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent px-0 mb-4">
-        <div class="container-fluid px-0">
-            <nav aria-label="breadcrumb">
-
-            </nav>
-            <div class="d-flex ms-auto align-items-center">
-                <div class="input-group me-3" style="width:200px;">
-                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                    <input id="searchBox" type="text" class="form-control" placeholder="Cerca..." aria-label="Cerca funzioni">
-                </div>
-                <div class="dropdown me-3">
-                    <button class="btn btn-outline-secondary position-relative" id="notifBtn" data-bs-toggle="dropdown">
-                        <i class="fas fa-bell"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifBtn">
-                        <li><h6 class="dropdown-header">Notifiche</h6></li>
-                        <li><a class="dropdown-item" href="#">Ticket aggiornato #123</a></li>
-                        <li><a class="dropdown-item" href="#">Nuovo messaggio da Anna</a></li>
-                        <li><a class="dropdown-item" href="#">Promemoria riunione ore 15</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-center" href="#">Mostra tutte</a></li>
-                    </ul>
-                </div>
-                <div class="dropdown me-3">
-                    <button class="btn btn-outline-secondary" id="langBtn" data-bs-toggle="dropdown">
-                        <i class="fas fa-language"></i> IT
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langBtn">
-                        <li><button class="dropdown-item">IT</button></li>
-                        <li><button class="dropdown-item">EN</button></li>
-                        <li><button class="dropdown-item">ES</button></li>
-                    </ul>
-                </div>
-                <button id="darkModeToggle" class="btn btn-outline-secondary">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
+<!-- ===========================
+     SIDEBAR OFFCANVAS (mobile/tablet)
+     =========================== -->
+<div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">Bruno Zevi</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Chiudi"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <div class="p-3 text-center">
+            <ul class="list-unstyled mb-3">
+                <li><i class="fas fa-envelope me-2 text-primary"></i>B.Zevi@vonicatti.it</li>
+                <li><i class="fas fa-phone me-2 text-primary"></i>+39 011 7654321</li>
+            </ul>
         </div>
-    </nav>
+        <hr class="my-0">
+        <div class="list-group list-group-flush">
+            <a href="#profile" class="list-group-item list-group-item-action">
+                <i class="fas fa-user me-2"></i>Il mio Profilo
+            </a>
+            <a href="#manageUsers" class="list-group-item list-group-item-action">
+                <i class="fas fa-users-cog me-2"></i>Gestione Utenti
+            </a>
+            <a href="#approveBudget" class="list-group-item list-group-item-action">
+                <i class="fas fa-file-invoice-dollar me-2"></i>Approva Budget
+            </a>
+            <a href="#messages" class="list-group-item list-group-item-action">
+                <i class="fas fa-envelope me-2"></i>Messaggi
+            </a>
+            <a href="dashboard2.html" class="list-group-item list-group-item-action">
+                <i class="fas fa-folder-open me-2"></i>Documenti Riservati
+            </a>
+            <a href="#settings" class="list-group-item list-group-item-action">
+                <i class="fas fa-cog me-2"></i>Impostazioni
+            </a>
+            <a href="login.html" class="list-group-item list-group-item-action text-danger">
+                <i class="fas fa-sign-out-alt me-2"></i>Esci
+            </a>
+        </div>
+    </div>
+</div>
 
-    <section id="overview">
+<!-- ===========================
+     CONTENUTO PRINCIPALE
+     =========================== -->
+<div id="content">
+    <section id="overview" class="mb-5">
         <h3>Benvenuto, <mark>Bruno</mark>!</h3>
-        <p class="mb-4">Qui puoi accedere a tutte le funzionalità avanzate.</p>
+        <p>Qui puoi accedere a tutte le funzionalità avanzate.</p>
     </section>
 
     <section id="quick-func" class="mb-5">
@@ -125,131 +266,140 @@
                 </div>
             </div>
         </div>
+
         <div id="mainContent" class="mt-5"></div>
     </section>
 </div>
 
-<!-- Scripts -->
+<!-- ===========================
+     SCRIPTS & LOGICA
+     =========================== -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Dark mode
+    // Toggle Dark Mode
     document.getElementById('darkModeToggle').addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
     });
 
-    // Dynamic content
+    // Contenuti dinamici
     const main = document.getElementById('mainContent');
     const templates = {
         viewMetrics: `
-    <h5 class="mb-4">Metriche Aziendali</h5>
-    <div class="row g-4">
-      <div class="col-md-6">
-        <canvas id="revenueChart" height="150"></canvas>
-      </div>
-      <div class="col-md-6">
-        <canvas id="costChart" height="150"></canvas>
-      </div>
-    </div>
-  `,
+        <h5 class="mb-4">Metriche Aziendali</h5>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <canvas id="revenueChart" height="200"></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas id="costChart" height="200"></canvas>
+          </div>
+        </div>
+      `,
         manageUsers: `
-    <h5 class="mb-4">Gestione Utenti</h5>
-    <table class="table table-striped">
-      <thead>
-        <tr><th>Nome</th><th>Ruolo</th><th>Livello</th><th>Azioni</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Anna Bianchi</td><td>Project Manager</td><td>2</td>
-          <td>
-            <button class="btn btn-sm btn-primary">Modifica</button>
-            <button class="btn btn-sm btn-danger">Disabilita</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Marco Verdi</td><td>Ingegnere</td><td>1</td>
-          <td>
-            <button class="btn btn-sm btn-primary">Modifica</button>
-            <button class="btn btn-sm btn-danger">Disabilita</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  `,
+        <h5 class="mb-4">Gestione Utenti</h5>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr><th>Nome</th><th>Ruolo</th><th>Livello</th><th>Azioni</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Anna Bianchi</td><td>Project Manager</td><td>2</td>
+                <td>
+                  <button class="btn btn-sm btn-primary">Modifica</button>
+                  <button class="btn btn-sm btn-danger">Disabilita</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Marco Verdi</td><td>Ingegnere</td><td>1</td>
+                <td>
+                  <button class="btn btn-sm btn-primary">Modifica</button>
+                  <button class="btn btn-sm btn-danger">Disabilita</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `,
         approveBudget: `
-    <h5 class="mb-4">Richieste di Budget</h5>
-    <table class="table">
-      <thead>
-        <tr><th>Progetto</th><th>Richiesto da</th><th>Importo</th><th>Stato</th><th>Azione</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>GreenBuild</td><td>Luisa Bianchi</td><td>€120.000</td><td><span class="badge bg-warning">In attesa</span></td>
-          <td>
-            <button class="btn btn-sm btn-success">Approva</button>
-            <button class="btn btn-sm btn-danger">Rifiuta</button>
-          </td>
-        </tr>
-        <tr>
-          <td>SmartCity</td><td>Giuseppe Verdi</td><td>€85.000</td><td><span class="badge bg-warning">In attesa</span></td>
-          <td>
-            <button class="btn btn-sm btn-success">Approva</button>
-            <button class="btn btn-sm btn-danger">Rifiuta</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  `,
+        <h5 class="mb-4">Richieste di Budget</h5>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr><th>Progetto</th><th>Richiesto da</th><th>Importo</th><th>Stato</th><th>Azione</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GreenBuild</td><td>Luisa Bianchi</td><td>€120.000</td><td><span class="badge bg-warning">In attesa</span></td>
+                <td>
+                  <button class="btn btn-sm btn-success">Approva</button>
+                  <button class="btn btn-sm btn-danger">Rifiuta</button>
+                </td>
+              </tr>
+              <tr>
+                <td>SmartCity</td><td>Giuseppe Verdi</td><td>€85.000</td><td><span class="badge bg-warning">In attesa</span></td>
+                <td>
+                  <button class="btn btn-sm btn-success">Approva</button>
+                  <button class="btn btn-sm btn-danger">Rifiuta</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `,
         companyLog: `
-    <h5 class="mb-4">Audit Log Aziendale</h5>
-    <ul class="list-group">
-      <li class="list-group-item"><strong>09:00</strong> Mario Rossi ha approvato un budget (€120.000)</li>
-      <li class="list-group-item"><strong>10:15</strong> Nuovo utente creato: Anna Bianchi</li>
-      <li class="list-group-item"><strong>11:30</strong> Report trimestrale generato</li>
-      <li class="list-group-item"><strong>14:00</strong> Accesso da remoto da IP 192.168.1.15</li>
-    </ul>
-  `
+        <h5 class="mb-4">Audit Log Aziendale</h5>
+        <ul class="list-group">
+          <li class="list-group-item"><strong>09:00</strong> Mario Rossi ha approvato un budget (€120.000)</li>
+          <li class="list-group-item"><strong>10:15</strong> Nuovo utente creato: Anna Bianchi</li>
+          <li class="list-group-item"><strong>11:30</strong> Report trimestrale generato</li>
+          <li class="list-group-item"><strong>14:00</strong> Accesso da remoto da IP 192.168.1.15</li>
+        </ul>
+      `
     };
 
+    // Inizializzo con le metriche
+    main.innerHTML = templates.viewMetrics;
+    initializeCharts();
+
+    // Collego il click di ogni card
     document.querySelectorAll('.func-card').forEach(card => {
         card.addEventListener('click', () => {
             const act = card.dataset.action;
             main.innerHTML = templates[act] || '';
             if (act === 'viewMetrics') {
-                const ctx = document.getElementById('ceoChart');
-                new Chart(ctx, { type:'bar', data:{ labels:['Q1','Q2','Q3','Q4'], datasets:[{ label:'Fatturato', data:[120,150,180,200], backgroundColor:'#005bac' }] }, options:{ responsive:true } });
+                initializeCharts();
             }
         });
     });
-    // Inizializza con le metriche
-    main.innerHTML = templates.viewMetrics;
-    initializeCharts();
 
-    // Gestione click sulle card
-    document.querySelectorAll('.func-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const act = card.dataset.action;
-            main.innerHTML = templates[act] || '';
-            if (act === 'viewMetrics') initializeCharts();
-        });
-    });
-
-    // Funzione per creare i grafici Chart.js
+    // Funzione per i grafici Chart.js
     function initializeCharts() {
-        // Ricavi mensili
+        // Grafico di linea (Fatturato)
         new Chart(document.getElementById('revenueChart'), {
             type: 'line',
             data: {
                 labels: ['Gen','Feb','Mar','Apr','Mag','Giu'],
-                datasets: [{ label: 'Fatturato (k€)', data: [120,150,170,160,180,200], borderColor: '#005bac', fill: false }]
+                datasets: [{
+                    label: 'Fatturato (k€)',
+                    data: [120,150,170,160,180,200],
+                    borderColor: '#005bac',
+                    fill: false
+                }]
             },
             options: { responsive: true }
         });
-        // Ripartizione costi
+
+        // Grafico a torta (Costi)
         new Chart(document.getElementById('costChart'), {
             type: 'pie',
             data: {
                 labels: ['Personale','Materiali','Logistica','Varie'],
-                datasets: [{ data: [30,40,20,10], backgroundColor: ['#005bac','#3399ff','#99ccff','#cce5ff'] }]
+                datasets: [{
+                    data: [30,40,20,10],
+                    backgroundColor: ['#005bac','#3399ff','#99ccff','#cce5ff']
+                }]
             },
             options: { responsive: true }
         });

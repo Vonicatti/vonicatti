@@ -5,11 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard – Luca Verdi</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    >
     <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Chart.js -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            rel="stylesheet"
+    >
+    <!-- Chart.js (se serve) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         :root {
             --bg-body-light: #f2f4f7;
@@ -27,18 +34,20 @@
             color: var(--text-dark);
         }
 
-        /* Sidebar as fixed card */
-        #sidebar {
+        /**************************************/
+        /* STILI SIDEBAR / OFFCANVAS          */
+        /**************************************/
+        /* Su desktop: sidebar “fissa” a sinistra */
+        #sidebarDesktop {
             position: fixed;
             top: 1rem;
             left: 1rem;
             width: 260px;
-            /* rimuoviamo background e box-shadow originali */
             background: transparent;
             box-shadow: none;
+            z-index: 100; /* sopra il contenuto */
         }
-        /* Card container inside sidebar */
-        #sidebar .profile-card {
+        #sidebarDesktop .profile-card {
             border-radius: 1rem;
             box-shadow: 0 4px 16px rgba(0,0,0,0.08);
             padding: 1.5rem;
@@ -49,10 +58,6 @@
             object-fit: cover;
             border-radius: 50%;
             display: block; margin: 0 auto 1rem;
-        }
-        #sidebar .nav-link.active {
-            font-weight: 600;
-            color: #005bac !important;
         }
         .profile-info p {
             margin: .5rem 0;
@@ -73,11 +78,13 @@
             box-shadow: 0 6px 16px rgba(0,0,0,0.2);
         }
 
-        /* Spazio per contenuto principale */
+        /* Spazio per contenuto principale (desktop) */
         #content {
             margin-left: 300px;
             padding: 1.5rem;
         }
+
+        /* CARD FUNZIONI */
         .func-card {
             border-radius: .75rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -91,37 +98,105 @@
             font-size: 2rem;
             color: #005bac;
         }
-        .breadcrumb-item a { color: inherit; text-decoration: none; }
-        .toast-container { position: fixed; top: 1rem; right: 1rem; z-index: 1080; }
-        #sidebar {
-            padding-top: 1.5rem; /* invece di solo 1rem */
-        }
-        .profile-card {
-            padding-top: 2rem;
 
+        /* Pulsante toggle per offcanvas (mobile): nascosto su desktop */
+        #btnToggleSidebar {
+            display: none;
         }
-        .btn-profile.position-relative .badge {
-            top: 8px;
-            right: 8px;
-            font-size: 0.75rem;
-            padding: 4px 6px;
+
+        /**************************************/
+        /* RESPONSIVE – schermi ≤ 992px (lg)   */
+        /**************************************/
+        @media (max-width: 992px) {
+            /* Nascondi la sidebar fissa su mobile */
+            #sidebarDesktop {
+                display: none;
+            }
+            /* Mostra il pulsante hamburger */
+            #btnToggleSidebar {
+                display: block;
+            }
+            /* Contenuto senza margin-left (per utilizzare tutto lo schermo) */
+            #content {
+                margin-left: 0;
+                padding: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+<!-- ============================================================
+     NAVBAR PRINCIPALE
+     • Include hamburger per aprire sidebar-offcanvas su mobile
+  ============================================================ -->
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent px-3 py-2">
+    <div class="container-fluid px-0">
+        <!-- Pulsante hamburger (solo su mobile) -->
+        <button class="btn btn-outline-secondary d-lg-none me-2" type="button"
+                id="btnToggleSidebar" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas">
+            <i class="fas fa-bars"></i>
+        </button>
 
-<!-- Sidebar trasformato in card -->
-<nav id="sidebar" aria-label="Sidebar">
-    <div class="profile-card">
+        <!-- Eventuale logo o titolo -->
+        <a class="navbar-brand fw-bold" href="#">Dashboard</a>
 
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-pic">
-        <h5 class="text-center mb-1">Luca Verdi</h5>
-        <p class="text-muted text-center mb-3">Project Manager</p>
-        <h6>Task Completato</h6>
-        <div class="progress mb-3" style="height:8px;">
-            <div class="progress-bar bg-success" style="width:80%"></div>
+        <!-- Spazio vuoto per centrare (può rimanere vuoto) -->
+        <div class="collapse navbar-collapse"></div>
+
+        <!-- Icone a destra: ricerca, notifiche, lingua, dark mode -->
+        <div class="d-flex align-items-center">
+            <div class="input-group me-3 d-none d-md-flex" style="width:200px;">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <input id="searchBox" type="text" class="form-control" placeholder="Cerca..." aria-label="Cerca funzioni">
+            </div>
+
+            <div class="dropdown me-3">
+                <button class="btn btn-outline-secondary position-relative" id="notifBtn" data-bs-toggle="dropdown">
+                    <i class="fas fa-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle-x badge rounded-pill bg-danger" style="transform: translate(25%, -50%);">5</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifBtn">
+                    <li><h6 class="dropdown-header">Notifiche</h6></li>
+                    <li><a class="dropdown-item" href="#">Ticket aggiornato #123</a></li>
+                    <li><a class="dropdown-item" href="#">Nuovo messaggio da Anna</a></li>
+                    <li><a class="dropdown-item" href="#">Promemoria riunione ore 15</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-center" href="#">Mostra tutte</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown me-3">
+                <button class="btn btn-outline-secondary" id="langBtn" data-bs-toggle="dropdown">
+                    <i class="fas fa-language"></i> IT
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langBtn">
+                    <li><button class="dropdown-item">IT</button></li>
+                    <li><button class="dropdown-item">EN</button></li>
+                    <li><button class="dropdown-item">ES</button></li>
+                </ul>
+            </div>
+
+            <button id="darkModeToggle" class="btn btn-outline-secondary me-2">
+                <i class="fas fa-moon"></i>
+            </button>
+
+            <a href="login.html" class="btn btn-outline-danger">Esci</a>
         </div>
+    </div>
+</nav>
 
+<!-- ============================================================
+     SIDEBAR “FISSA” (solo desktop)
+  ============================================================ -->
+<nav id="sidebarDesktop" aria-label="Sidebar">
+    <div class="profile-card text-center">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-pic" alt="Foto profilo">
+        <h5>Luca Verdi</h5>
+        <p class="text-muted mb-3">Project Manager</p>
+        <h6>Task Completato</h6>
+        <div class="progress mb-3" style="height: 8px;">
+            <div class="progress-bar bg-success" style="width: 80%;"></div>
+        </div>
         <div class="profile-info mb-4">
             <p><i class="fas fa-envelope me-2 text-primary"></i>luca.verdi@vonicatti.it</p>
             <p><i class="fas fa-phone me-2 text-primary"></i>+39 011 1234567</p>
@@ -133,91 +208,92 @@
                 <i class="fas fa-envelope me-2"></i>Messaggi
                 <span class="position-absolute top-0 start-100 translate-middle badge bg-light text-dark">3</span>
             </button>
-            <a href="dashboard.html" class="btn btn-profile">
+            <a href="documenti.html" class="btn btn-profile">
                 <i class="fas fa-folder-open me-2"></i>Documenti Riservati
-            </a>            <button class="btn btn-profile"><i class="fas fa-cog me-2"></i>Impostazioni</button>
+            </a>
+            <button class="btn btn-profile"><i class="fas fa-cog me-2"></i>Impostazioni</button>
             <a href="login.html" class="btn btn-profile">
                 <i class="fas fa-sign-out-alt me-2"></i>Esci
-            </a>        </div>
+            </a>
+        </div>
     </div>
 </nav>
 
-<!-- Content -->
-<div id="content">
-    <!-- Top Navbar / Breadcrumb -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent px-0 mb-4">
-        <div class="container-fluid px-0">
-            <nav aria-label="breadcrumb">
-
-            </nav>
-            <div class="d-flex ms-auto align-items-center">
-                <div class="input-group me-3" style="width:200px;">
-                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                    <input id="searchBox" type="text" class="form-control" placeholder="Cerca..." aria-label="Cerca funzioni">
-                </div>
-                <div class="dropdown me-3">
-                    <button class="btn btn-outline-secondary position-relative" id="notifBtn" data-bs-toggle="dropdown">
-                        <i class="fas fa-bell"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifBtn">
-                        <li><h6 class="dropdown-header">Notifiche</h6></li>
-                        <li><a class="dropdown-item" href="#">Ticket aggiornato #123</a></li>
-                        <li><a class="dropdown-item" href="#">Nuovo messaggio da Anna</a></li>
-                        <li><a class="dropdown-item" href="#">Promemoria riunione ore 15</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-center" href="#">Mostra tutte</a></li>
-                    </ul>
-                </div>
-                <div class="dropdown me-3">
-                    <button class="btn btn-outline-secondary" id="langBtn" data-bs-toggle="dropdown">
-                        <i class="fas fa-language"></i> IT
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langBtn">
-                        <li><button class="dropdown-item">IT</button></li>
-                        <li><button class="dropdown-item">EN</button></li>
-                        <li><button class="dropdown-item">ES</button></li>
-                    </ul>
-                </div>
-                <button id="darkModeToggle" class="btn btn-outline-secondary">
-                    <i class="fas fa-moon"></i>
-                </button>
+<!-- ============================================================
+     SIDEBAR OFFCANVAS (solo mobile/tablet ≤ 992px)
+  ============================================================ -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">Luca Verdi</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Chiudi"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <div class="p-3 text-center">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="profile-pic mb-2" alt="Foto profilo">
+            <p class="text-muted mb-1">Project Manager</p>
+            <div class="profile-info mb-3">
+                <p class="mb-1"><i class="fas fa-envelope me-2 text-primary"></i>luca.verdi@vonicatti.it</p>
+                <p><i class="fas fa-phone me-2 text-primary"></i>+39 011 1234567</p>
             </div>
         </div>
-    </nav>
+        <hr class="my-0">
+        <div class="list-group list-group-flush">
+            <button class="list-group-item list-group-item-action d-flex align-items-center">
+                <i class="fas fa-user-circle me-2"></i> Il mio Profilo
+            </button>
+            <button class="list-group-item list-group-item-action d-flex align-items-center position-relative">
+                <i class="fas fa-envelope me-2"></i> Messaggi
+                <span class="badge bg-secondary position-absolute top-50 end-0 translate-middle-y me-3">3</span>
+            </button>
+            <a href="documenti.html" class="list-group-item list-group-item-action d-flex align-items-center">
+                <i class="fas fa-folder-open me-2"></i> Documenti Riservati
+            </a>
+            <button class="list-group-item list-group-item-action d-flex align-items-center">
+                <i class="fas fa-cog me-2"></i> Impostazioni
+            </button>
+            <a href="login.html" class="list-group-item list-group-item-action d-flex align-items-center text-danger">
+                <i class="fas fa-sign-out-alt me-2"></i> Esci
+            </a>
+        </div>
+    </div>
+</div>
 
+<!-- ============================================================
+     CONTENUTO PRINCIPALE
+  ============================================================ -->
+<div id="content">
     <!-- Overview -->
-    <section id="overview">
+    <section id="overview" class="mb-5">
         <h2>Benvenuto, <mark>Luca</mark>!</h2>
-        <p class="mb-4">Ecco la tua dashboard personalizzata.</p>
+        <p>Ecco la tua dashboard personalizzata.</p>
     </section>
 
     <!-- Funzioni rapide -->
     <section id="quick-func" class="mb-5">
         <h5 class="mb-3">Funzioni rapide</h5>
         <div class="row g-3" id="funcContainer">
-            <div class="col-sm-6 col-lg-3">
+            <div class="col-6 col-sm-4 col-md-3">
                 <div class="card func-card p-3 text-center h-100" data-action="calendar">
                     <i class="fas fa-calendar-alt func-icon mb-2"></i>
-                    <h6>Calendario</h6>
+                    <h6 class="mb-0">Calendario</h6>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3">
+            <div class="col-6 col-sm-4 col-md-3">
                 <div class="card func-card p-3 text-center h-100" data-action="ticket">
                     <i class="fas fa-ticket-alt func-icon mb-2"></i>
-                    <h6>Crea Ticket</h6>
+                    <h6 class="mb-0">Crea Ticket</h6>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3">
+            <div class="col-6 col-sm-4 col-md-3">
                 <div class="card func-card p-3 text-center h-100" data-action="report">
                     <i class="fas fa-chart-line func-icon mb-2"></i>
-                    <h6>Report Giornaliero</h6>
+                    <h6 class="mb-0">Report Giornaliero</h6>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3">
+            <div class="col-6 col-sm-4 col-md-3">
                 <div class="card func-card p-3 text-center h-100" data-action="news">
                     <i class="fas fa-bullhorn func-icon mb-2"></i>
-                    <h6>News Interna</h6>
+                    <h6 class="mb-0">News Interna</h6>
                 </div>
             </div>
         </div>
@@ -225,74 +301,90 @@
         <!-- Contenuto dinamico -->
         <div id="mainContent" class="mt-5"></div>
     </section>
+</div>
 
+<!-- ============================================================
+     TOAST DI ESEMPIO (facoltativo)
+  ============================================================ -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="actionToast" class="toast align-items-center text-white bg-primary border-0" role="alert"
+         aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Azione eseguita!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast" aria-label="Chiudi"></button>
+        </div>
+    </div>
+</div>
 
-
-
-<!-- Bootstrap JS -->
+<!-- Bootstrap JS + script dinamico -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Dark mode toggle
+    // Dark mode
     document.getElementById('darkModeToggle').addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
     });
 
-    // Default calendario
+    // Contenuti dinamici per le funzioni rapide
     const main = document.getElementById('mainContent');
-    const calendarHTML = `
-      <h5 class="mb-3">Calendario Affari del Giorno</h5>
-      <ul class="list-group mb-4">
-        <li class="list-group-item"><strong>09:00</strong> Stand-up meeting team</li>
-        <li class="list-group-item"><strong>11:00</strong> Incontro con Marketing</li>
-        <li class="list-group-item"><strong>14:00</strong> Ispezione cantiere A3</li>
-      </ul>`;
-    const ticketHTML = `
-      <h5 class="mb-3">Nuovo Ticket</h5>
-      <form>
-        <div class="mb-3">
-          <label class="form-label">Titolo</label>
-          <input type="text" class="form-control" placeholder="Descrizione breve">
+    const templates = {
+        calendar: `
+        <h5 class="mb-3">Calendario Affari del Giorno</h5>
+        <ul class="list-group mb-4">
+          <li class="list-group-item"><strong>09:00</strong> Stand-up meeting team</li>
+          <li class="list-group-item"><strong>11:00</strong> Incontro con Marketing</li>
+          <li class="list-group-item"><strong>14:00</strong> Ispezione cantiere A3</li>
+        </ul>
+      `,
+        ticket: `
+        <h5 class="mb-3">Nuovo Ticket</h5>
+        <form>
+          <div class="mb-3">
+            <label class="form-label">Titolo</label>
+            <input type="text" class="form-control" placeholder="Descrizione breve">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Dettagli</label>
+            <textarea class="form-control" rows="4" placeholder="Spiega il problema..."></textarea>
+          </div>
+          <button class="btn btn-primary">Invia Ticket</button>
+        </form>
+      `,
+        report: `
+        <h5 class="mb-3">Report Giornaliero</h5>
+        <ul class="list-group mb-4">
+          <li class="list-group-item">Ticket risolti: <strong>5</strong></li>
+          <li class="list-group-item">Ore lavorate: <strong>8h 15m</strong></li>
+          <li class="list-group-item">Note: Buon progresso sui progetti A e B.</li>
+        </ul>
+      `,
+        news: `
+        <h5 class="mb-3">News Interna</h5>
+        <div class="list-group mb-4">
+          <a href="#" class="list-group-item list-group-item-action">
+            <h6 class="mb-1">Nuovo protocollo sicurezza</h6>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action">
+            <h6 class="mb-1">Formazione BIM</h6>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action">
+            <h6 class="mb-1">Evento aziendale</h6>
+          </a>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Dettagli</label>
-          <textarea class="form-control" rows="4" placeholder="Spiega il problema..."></textarea>
-        </div>
-        <button class="btn btn-primary">Invia Ticket</button>
-      </form>`;
-    const reportHTML = `
-      <h5 class="mb-3">Report Giornaliero</h5>
-      <ul class="list-group mb-4">
-        <li class="list-group-item">Ticket risolti: <strong>5</strong></li>
-        <li class="list-group-item">Ore lavorate: <strong>8h 15m</strong></li>
-        <li class="list-group-item">Note: Buon progresso sui progetti A e B.</li>
-      </ul>`;
-    const newsHTML = `
-      <h5 class="mb-3">News Interna</h5>
-      <div class="list-group mb-4">
-        <a href="#" class="list-group-item list-group-item-action">
-          <h6 class="mb-1">Nuovo protocollo sicurezza</h6>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-          <h6 class="mb-1">Formazione BIM</h6>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-          <h6 class="mb-1">Evento aziendale</h6>
-        </a>
-      </div>`;
+      `
+    };
 
-    main.innerHTML = calendarHTML;
+    // Imposta contenuto di default (Calendario)
+    main.innerHTML = templates.calendar;
 
     document.querySelectorAll('.func-card').forEach(card => {
         card.addEventListener('click', () => {
-            const action = card.getAttribute('data-action');
-            switch(action) {
-                case 'calendar': main.innerHTML = calendarHTML; break;
-                case 'ticket':   main.innerHTML = ticketHTML;   break;
-                case 'report':   main.innerHTML = reportHTML;   break;
-                case 'news':     main.innerHTML = newsHTML;     break;
-            }
-            // show toast on action
-            new bootstrap.Toast(document.getElementById('actionToast')).show();
+            const action = card.dataset.action;
+            main.innerHTML = templates[action] || '';
+            // Mostra toast di conferma azione (opzionale)
+
         });
     });
 </script>
